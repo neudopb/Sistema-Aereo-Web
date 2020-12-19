@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"></head>
+<body>
+	<div class="modal fade" id="modalAssento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:fragment="assentos">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLabel">ASSENTOS DISPONÍVEIS</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+	            <span aria-hidden="true">&times;</span>
+	          </button>
+	            </div>
+	            <div class="modal-body">
+	                <div class="container">
+	                    <div class="card">
+	                        <table class="table table-hover shopping-cart-wrap">
+	                            <tbody>
+	                                <tr>
+	                                    <th>
+	                                        <h5>A</h5>
+	                                    </th>
+	                                    <th>
+	                                        <h5>B</h5>
+	                                    </th>
+	                                    <th>
+	                                        <h5>C</h5>
+	                                    </th>
+	                                    <th>
+	                                        <h5></h5>
+	                                    </th>
+	                                    <th>
+	                                        <h5>D</h5>
+	                                    </th>
+	                                    <th>
+	                                        <h5>E</h5>
+	                                    </th>
+	                                    <th>
+	                                        <h5>F</h5>
+	                                    </th>
+	                                </tr>
+	                                <tr th:each="a : ${assento}">
+	                                	 <th>
+	                                        <h5>1</h5>
+	                                    </th>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="A1" name="assento" value="A1">
+	                                        <label for="A1" th:text="${a.nome}">A1</label>
+	                                    </td>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="B1" name="assento" value="B1">
+	                                        <label for="B1">B1</label>
+	                                    </td>
+	                                    <td class="ocupado">
+	                                        <input type="radio" id="C1" name="assento" value="C1" disabled>
+	                                        <label for="C1">C1</label>
+	                                    </td>
+	                                   
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="D1" name="assento" value="D1">
+	                                        <label for="D1">D1</label>
+	                                    </td>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="E1" name="assento" value="E1">
+	                                        <label for="E1">E1</label>
+	                                    </td>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="F1" name="assento" value="F1">
+	                                        <label for="F1">F1</label>
+	                                    </td>
+	                                </tr>
+	                                <tr>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="A2" name="assento" value="A2">
+	                                        <label for="A2">A2</label>
+	                                    </td>
+	                                    <td class="ocupado">
+	                                        <input type="radio" id="B2" name="assento" value="B2" disabled>
+	                                        <label for="B2">B2</label>
+	                                    </td>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="C2" name="assento" value="C2">
+	                                        <label for="C2">C2</label>
+	                                    </td>
+	                                    <th>
+	                                        <h5>2</h5>
+	                                    </th>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="D2" name="assento" value="D2">
+	                                        <label for="D2">D2</label>
+	                                    </td>
+	                                    <td class="disponivel">
+	                                        <input type="radio" id="E2" name="assento" value="E2">
+	                                        <label for="E2">E2</label>
+	                                    </td>
+	                                    <td class="ocupado">
+	                                        <input type="radio" id="F2" name="assento" value="F2" disabled>
+	                                        <label for="F2">F2</label>
+	                                    </td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+	                    </div>
+	                    <!-- card.// -->
+	                </div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+	                <a  th:href="@{/minhasReservas}" type="button" class="btn btn-success">Reservar</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body id="page-top">
+
+	<div layout:fragment="corpo">
+		<!-- Masthead-->
+		<header class="masthead" id="inicio">
+			<div class="container teste">
+				<div class="hotel-search-form">
+					<form th:action="@{/pesquisarPassagem}" th:object="${voo}"
+						method="POST">
+						<div class="row justify-content-between align-items-end">
+
+							<div class="col-6 col-md-2 col-lg-12">
+								<h4>Pesquisar Passagens Aéreas</h4>
+							</div>
+
+						</div>
+
+						<div class="row justify-content-between align-items-end">
+							<div class="col-6 col-md-2 col-sm-2">
+								<label for="origem">Origem</label> <input type="text"
+									class="form-control" id="origem" name="origem" required>
+							</div>
+							<div class="col-6 col-md-2 col-lg-2">
+								<label for="destino">Destino</label> <input type="text"
+									class="form-control" id="destino" name="destino" required>
+							</div>
+							<div class="col-6 col-md-2 col-lg-2">
+								<label for="dataIda">Ida</label> <input type="date"
+									class="form-control" id="dataIda" name="dataIda" placeholder="Data" required>
+							</div>
+							<div class="col-6 col-md-2 col-lg-2">
+								<label for="dataVolta">Volta (Opcional)</label> <input type="date"
+									class="form-control" id="dataVolta" name="dataVolta" placeholder="Opcional">
+							</div>
+
+							<div class="col-6 col-md-2 col-lg-2">
+								<label for="inputState">Classe</label> <select id="inputState"
+									class="form-control" name="classe" required>
+									<option value="" disabled selected>Selecione</option>
+									<option value="economica">Economica</option>
+									<option value="primeiraClasse">Primeira Classe</option>
+								</select>
+							</div>
+
+							<div class="col-6 col-md-2 col-lg-2">
+								<button type="submit" class="form-control btn btn-success w-100"
+									role="button">Buscar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</header>
+
+		<!-- Portfolio Grid-->
+		<section class="page-section bg-light" id="voos">
+			<div class="container">
+				<div class="text-center">
+					<h2 class="section-heading text-uppercase">Cidades Turisticas
+						do Brasil</h2>
+					<h3 class="section-subheading text-muted">Conheça as belezas
+						do nosso país</h3>
+				</div>
+				<div class="row">
+					<div class="col-lg-4 col-sm-6 mb-4">
+						<div class="portfolio-item">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content"></div>
+							</div>
+							<img class="img-fluid" src="assets/img/cidades/rj.jpg" alt="" />
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">Rio de Janeiro-RJ</div>
+								<div class="portfolio-caption-subheading text-muted"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 mb-4">
+						<div class="portfolio-item">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content"></div>
+							</div>
+							<img class="img-fluid" src="assets/img/cidades/fortaleza.jpg"
+								alt="" />
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">Fortaleza-CE</div>
+								<div class="portfolio-caption-subheading text-muted"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 mb-4">
+						<div class="portfolio-item">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content"></div>
+							</div>
+							<img class="img-fluid" src="assets/img/cidades/gramado.jpg"
+								alt="" />
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">Gramado-RS</div>
+								<div class="portfolio-caption-subheading text-muted"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+						<div class="portfolio-item">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content"></div>
+							</div>
+							<img class="img-fluid" src="assets/img/cidades/natal.jpg" alt="" />
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">Natal-RN</div>
+								<div class="portfolio-caption-subheading text-muted"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6 mb-4 mb-sm-0">
+						<div class="portfolio-item">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content"></div>
+							</div>
+							<img class="img-fluid" src="assets/img/cidades/sp.jpg" alt="" />
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">São Paulo-SP</div>
+								<div class="portfolio-caption-subheading text-muted"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-sm-6">
+						<div class="portfolio-item">
+							<div class="portfolio-hover">
+								<div class="portfolio-hover-content"></div>
+							</div>
+							<img class="img-fluid" src="assets/img/cidades/salvador.jpg"
+								alt="" />
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">Salvador-BA</div>
+								<div class="portfolio-caption-subheading text-muted"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+
+</body>
+
+</html>

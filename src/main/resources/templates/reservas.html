@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+
+<head>
+<meta charset="utf-8" />
+<title>Minhas Reservas</title>
+</head>
+
+<body id="page-top">
+
+	<div layout:fragment="corpo">
+		<div th:replace="fragments/modal :: assentos"></div>
+		<!-- Masthead-->
+		<header class="masthead" id="inicio">
+			<div class="text-center formatTxt">
+				<h2 class="section-heading text-uppercase">Minhas Reservas</h2>
+			</div>
+			<div class="container">
+				<div class="card">
+					<table class="table table-hover shopping-cart-wrap">
+						<tbody>
+							<tr>
+								<th><p>Reserva</p></th>
+								<th><p>Companhia</p></th>
+								<th><p>Origem</p></th>
+								<th><p>Destino</p></th>
+								<th><p>Classe</p></th>
+								<th><p>Assento</p></th>
+								<th><p>Preço</p></th>
+								<th><p>Status do Pagamento</p></th>
+								<th><p>Ação</p></th>
+
+							</tr>
+							<tr th:each="r : ${passagens}">
+								<td>
+									<p th:text="${r.idAssento.idVoo.id}">1</p>
+								</td>
+								<td><p th:text="${r.idAssento.idVoo.companhia}">Azul</p></td>
+
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate" th:text="${r.idAssento.idVoo.origem}">Fortaleza-CE</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data: </b> <label th:text="${r.idAssento.idVoo.dataSaida}">18/11/2020</label>
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora: </b><label th:text="${r.idAssento.idVoo.horaSaida}">20:00</label>
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate" th:text="${r.idAssento.idVoo.destino}">São Paulo-SP</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data: </b><label th:text="${r.idAssento.idVoo.dataChegada}">18/11/2020</label>
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora: </b><label th:text="${r.idAssento.idVoo.horaChegada}">23:00</label>
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td>
+									<p th:text="${r.idAssento.classe}">Econômica</p>
+								</td>
+								<td>
+									<p th:text="${r.idAssento.nome}">A10</p>
+								</td>
+								<td>
+									<p th:text="${r.idAssento.preco}">R$2000.00</p>
+								</td>
+								<td>
+									<p th:text="${r.idPagamento.status}">Em andamento</p>
+								</td>
+								<td><a class="btn btn-danger btn-sm" href="" role="button">
+										<span class="oi oi-circle-x" title="Cancelar"
+										aria-hidden="true"></span>
+								</a> <a class="btn btn-success btn-sm" href="" role="button"> <span
+										class="oi oi-check" title="Pagar" aria-hidden="true"></span>
+								</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- card.// -->
+			</div>
+		</header>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+
+<head>
+<meta charset="utf-8" />
+<title>Passagens Aéreas</title>
+</head>
+
+<body id="page-top">
+
+	<div layout:fragment="corpo">
+		<div th:replace="fragments/modal :: assentos"></div>
+		<!-- Masthead-->
+		<header class="masthead" id="inicio">
+			<div class="text-center formatTxt">
+				<h2 class="section-heading text-uppercase">Voos Disponíveis</h2>
+			</div>
+			<div class="container">
+				<div class="card">
+					<table class="table table-hover shopping-cart-wrap">
+						<tbody>
+							<tr th:each="v : ${voosIda}">
+							<form action="/minhasReservas" method="GET">
+								<td>
+									<h3>IDA</h3><p th:text="${v.companhia}">AZUL</p>
+								</td>
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate"  th:text="${v.origem}">Fortaleza-CE</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data: </b><label th:text="${v.dataSaida}"> 18/11/2020</label>
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora: </b><label th:text="${v.horaSaida}"> 20:00</label>
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td><i class="fas fa-arrow-right"></i></td>
+
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate" th:text="${v.destino}">São Paulo-SP</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data: </b><label th:text="${v.dataChegada}"> 18/11/2020</label>
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora: </b><label th:text="${v.horaChegada}"> 23:00</label> 
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td><label><b>R$2000.00</b></label></td>
+								<td>
+									<label><b>Assento</b></label><br>
+									<select id="assento" required>
+										<option value="" disabled selected>Selecione</option>
+										<option th:each="a : ${v.assentos}" th:value="${a.id}"
+										th:text="${a.nome}"></option>
+										
+									</select>
+								</td>
+								
+								<td class="text-right">
+									<button type="submit" class="form-control btn btn-success w-100">Reservar</a>
+								</td>
+							</form>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- card.// -->
+			</div>
+
+			<!--  <div class="container">
+				<div class="card">
+					<table class="table table-hover shopping-cart-wrap">
+						<tbody>
+							<tr>
+								<td>
+									<h3>IDA</h3>
+								</td>
+								<td><label>AZUL</label></td>
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate">Fortaleza-CE</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data:</b> 18/11/2020
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora:</b> 20:00
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td><i class="fas fa-arrow-right"></i></td>
+
+								</td>
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate">São Paulo-SP</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data:</b> 18/11/2020
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora:</b> 23:00
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td><label><b>R$1000.00</b></label></td>
+								<td rowspan="2" class="text-right">
+									<button class="form-control btn btn-success w-100" role="button"
+									data-toggle="modal" data-target="#modalAssento" >Reservar </button>
+								</td>
+							</tr>
+							</tr>
+							<tr>
+								<td>
+									<h3>VOLTA</h3>
+								</td>
+								<td><label>AZUL</label></td>
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate">São Paulo-SP</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data:</b> 25/11/2020
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora:</b> 20:00
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td><i class="fas fa-arrow-right"></i></td>
+
+								</td>
+								<td>
+									<figure class="media">
+										<figcaption class="media-body">
+											<h6 class="title text-truncate">Fortaleza-CE</h6>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Data:</b> 25/11/2020
+												</dd>
+
+											</dl>
+											<dl class="param param-inline small">
+												<dd>
+													<b>Hora:</b> 23:00
+												</dd>
+											</dl>
+										</figcaption>
+									</figure>
+								</td>
+								<td><label><b>R$1000.00</b></label></td>
+							</tr>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			-->
+		</header>
+	</div>
+</body>
+
+</html>

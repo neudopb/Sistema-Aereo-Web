@@ -21,6 +21,7 @@
     <link href="webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
 	<nav th:replace="fragments/navbar :: menu"></nav>
@@ -36,9 +37,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
+    <script th:src="assets/mail/jqBootstrapValidation.js"></script>
+    <script th:src="assets/mail/contact_me.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script th:src="js/scripts.js"></script>
 </body>
 </html>

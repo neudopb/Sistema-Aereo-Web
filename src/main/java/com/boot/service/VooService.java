@@ -1,5 +1,7 @@
 package com.boot.service;
 
+import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,23 +15,36 @@ public class VooService {
 
 	@Autowired
 	private WebClient webClient;
-	
-	public Flux<Voo> findAll() {
-		
-		return this.webClient.get()
-			.uri("/api/voo/findall")
-			.retrieve()
-			.bodyToFlux(Voo.class);
+
+	public Voo[] findAll() {
+
+		Mono<Voo[]> mono = this.webClient.get()
+				.uri("/api/voo/findall")
+				.retrieve()
+				.bodyToMono(Voo[].class);
+
+		Voo[] voo = mono.block();
+		return voo;
 	}
-	
+
 	public Mono<Voo> findId(Long id) {
-		
+
 		return this.webClient.get()
-			.uri("/api/voo/findid/{id}", id)
-			.retrieve()
-			.bodyToMono(Voo.class);
+				.uri("/api/voo/findid/{id}", id)
+				.retrieve()
+				.bodyToMono(Voo.class);
+	}
+
+	public Voo[] findVoo(String origem, String destino, LocalDate data) {
+
+		Mono<Voo[]> mono = this.webClient.get()
+				.uri("/api/voo/findvoo/{origem}/{destino}/{data}",
+						origem, destino, data)
+				.retrieve()
+				.bodyToMono(Voo[].class);
 		
-		//Voo voo = monoVoo.block();
-		//return voo;
+		Voo[] voo = mono.block();
+		
+		return voo;
 	}
 }

@@ -1,8 +1,8 @@
 package com.boot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.boot.model.Usuario;
@@ -18,6 +18,7 @@ public class UsuarioService {
 	public Usuario save(Usuario usuario){
 		Mono<Usuario> mono = this.webClient.post()
 				.uri("api/usuario/save")
+				.body(BodyInserters.fromValue(usuario))
 				.retrieve()
 				.bodyToMono(Usuario.class);
 
@@ -28,8 +29,9 @@ public class UsuarioService {
 	
 	public Usuario findEmailSenha(Usuario usuario) {
 		Mono<Usuario> mono = this.webClient
-				.method(HttpMethod.POST)
+				.post()
 				.uri("api/usuario/findemailsenha")
+				.body(BodyInserters.fromValue(usuario))
 				.retrieve()
 				.bodyToMono(Usuario.class);
 		

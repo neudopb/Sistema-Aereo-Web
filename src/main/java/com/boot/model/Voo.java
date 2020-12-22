@@ -2,6 +2,8 @@ package com.boot.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,6 +19,7 @@ public class Voo {
 	private LocalDate dataChegada;
 	private LocalTime horaChegada;
 	private String companhia;
+	private List<Assento> assentos;
 
 	public Long getId() {
 		return id;
@@ -80,6 +83,14 @@ public class Voo {
 
 	public void setCompanhia(String companhia) {
 		this.companhia = companhia;
+	}
+	
+	public List<Assento> getAssentos() {
+		return assentos;
+	}
+
+	public void setAssentos(List<Assento> assentos) {
+		this.assentos = assentos;
 	}
 
 }

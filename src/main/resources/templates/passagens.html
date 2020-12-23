@@ -68,7 +68,7 @@
 									<label><b>Assento</b></label><br>
 									<select id="assento" required>
 										<option value="" disabled selected>Selecione</option>
-										<option th:each="a : ${v.assentos}" th:value="${a.id}"
+										<option th:each=" a : ${v.assentos}" th:value="${a.id}"
 										th:text="${a.nome}"></option>
 										
 									</select>

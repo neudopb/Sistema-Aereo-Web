@@ -27,6 +27,18 @@ public class UsuarioController {
 		return "cadastro";
 	}
 	
+	@GetMapping("/home")
+	public String home(HttpSession session) {
+		session.getAttribute("userlogado");
+		return "home";
+	}
+	
+	@GetMapping("/logout")
+	public String Logout(Usuario usuario, HttpSession session) {
+		session.removeAttribute("userlogado");
+		return "login";
+	}
+	
 	
 	@PostMapping("/home")
 	public ModelAndView logar(Usuario usuario, HttpSession session) {

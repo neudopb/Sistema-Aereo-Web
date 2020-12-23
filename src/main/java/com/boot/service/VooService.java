@@ -1,7 +1,9 @@
 package com.boot.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,7 @@ public class VooService {
 
 	public Voo[] findAll() {
 
-		Mono<Voo[]> mono = this.webClient.get()
-				.uri("/api/voo/findall")
-				.retrieve()
-				.bodyToMono(Voo[].class);
+		Mono<Voo[]> mono = this.webClient.get().uri("/api/voo/findall").retrieve().bodyToMono(Voo[].class);
 
 		Voo[] voo = mono.block();
 		return voo;
@@ -30,14 +29,14 @@ public class VooService {
 
 	public Mono<Voo> findId(Long id) {
 
-		return this.webClient.get()
-				.uri("/api/voo/findid/{id}", id)
-				.retrieve()
-				.bodyToMono(Voo.class);
+		return this.webClient.get().uri("/api/voo/findid/{id}", id).retrieve().bodyToMono(Voo.class);
 	}
 
 	public Voo[] findVoo(String origem, String destino, LocalDate data, String classe) {
 
+		try {
+			
+		
 		Mono<Voo[]> monoV = this.webClient.get()
 				.uri("/api/voo/findvoo/{origem}/{destino}/{data}",
 						origem, destino, data)
@@ -51,23 +50,24 @@ public class VooService {
 				.retrieve()
 				.bodyToMono(Assento[].class);
 		
-		Assento[] as = monoA.block();
-		//List<Assento> assentos = Arrays.asList(as);
-		Assento[] aux = new Assento[as.length];
+		Assento[] assento = monoA.block();
+		
+		//Assento[] aux = new Assento[assento.length];
 		
 		for (Voo v : voo) {
-			int i = 0;
-			for(Assento a : as) {
-				if(a.isDisponibilidade() && a.getClasse().equals(classe)) {
-					aux[i] = a;
-					i++;
-					System.out.println("bjhbjhvvjhvjhvjh"+a.getId() + a.getNome());
+			List<Assento> aux = new ArrayList<>();
+			for(Assento a : assento) {
+				if(v.getId() == a.getIdVoo().getId() &&
+						a.isDisponibilidade() && a.getClasse().equals(classe)) {
+					aux.add(a);
 				}
 			}
-			v.setAssentos(Arrays.asList(aux));
-			aux = null;
+			v.setAssentos(aux);
 		}
 		
 		return voo;
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }

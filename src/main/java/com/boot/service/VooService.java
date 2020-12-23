@@ -1,13 +1,14 @@
 package com.boot.service;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import com.boot.model.Assento;
 import com.boot.model.Voo;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -35,15 +36,37 @@ public class VooService {
 				.bodyToMono(Voo.class);
 	}
 
-	public Voo[] findVoo(String origem, String destino, LocalDate data) {
+	public Voo[] findVoo(String origem, String destino, LocalDate data, String classe) {
 
-		Mono<Voo[]> mono = this.webClient.get()
+		Mono<Voo[]> monoV = this.webClient.get()
 				.uri("/api/voo/findvoo/{origem}/{destino}/{data}",
 						origem, destino, data)
 				.retrieve()
 				.bodyToMono(Voo[].class);
 		
-		Voo[] voo = mono.block();
+		Voo[] voo = monoV.block();
+		
+		Mono<Assento[]> monoA = this.webClient.get()
+				.uri("/api/assento/findall")
+				.retrieve()
+				.bodyToMono(Assento[].class);
+		
+		Assento[] as = monoA.block();
+		//List<Assento> assentos = Arrays.asList(as);
+		Assento[] aux = new Assento[as.length];
+		
+		for (Voo v : voo) {
+			int i = 0;
+			for(Assento a : as) {
+				if(a.isDisponibilidade() && a.getClasse().equals(classe)) {
+					aux[i] = a;
+					i++;
+					System.out.println("bjhbjhvvjhvjhvjh"+a.getId() + a.getNome());
+				}
+			}
+			v.setAssentos(Arrays.asList(aux));
+			aux = null;
+		}
 		
 		return voo;
 	}

@@ -3,7 +3,6 @@ package com.boot.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.boot.model.Voo;
 import com.boot.service.VooService;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Controller
@@ -52,7 +50,7 @@ public class VooController {
 		LocalDate dataI = LocalDate.parse(dataIda, formatter);
 		LocalDate dataV = LocalDate.parse(dataIda, formatter);
 
-		Voo[] voos = service.findVoo(origem, destino, dataI);
+		Voo[] voos = service.findVoo(origem, destino, dataI, classe);
 		ModelAndView mv = new ModelAndView("passagens");
 		mv.addObject("voosIda", voos);
 		

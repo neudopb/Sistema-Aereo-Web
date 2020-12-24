@@ -21,7 +21,7 @@
 					<table class="table table-hover shopping-cart-wrap">
 						<tbody>
 							<tr th:each="v : ${voosIda}">
-							<form action="/minhasReservas" method="GET">
+							<form action="/passagem/reserva" method="GET">
 								<td>
 									<h3>IDA</h3><p th:text="${v.companhia}">AZUL</p>
 								</td>
@@ -66,14 +66,14 @@
 								 <td><label><b>R$2000.00</b></label></td>
 								<td>
 									<label><b>Assento</b></label><br>
-									<select id="assento" required>
+									<select id="assento" name="assento" required>
 										<option value="" disabled selected>Selecione</option>
 										<option th:each=" a : ${v.assentos}" th:value="${a.id}"
 										th:text="${a.nome}"></option>
 										
 									</select>
 								</td>
-								
+								<input type="hidden" name="idUser" th:value="${user}">
 								<td class="text-right">
 									<button type="submit" class="form-control btn btn-success w-100">Reservar</a>
 								</td>

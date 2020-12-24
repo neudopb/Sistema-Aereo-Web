@@ -4,6 +4,8 @@ package com.boot.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +46,7 @@ public class VooController {
 	@RequestMapping(value="/findvoo", method = RequestMethod.GET)
 	public ModelAndView findVoo(@RequestParam("origem") String origem, @RequestParam("destino") String destino,
 			@RequestParam("dataIda") String dataIda, @RequestParam("dataVolta") String dataVolta, 
-			@RequestParam("classe") String classe) {
+			@RequestParam("classe") String classe, HttpSession session) {
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dataI = LocalDate.parse(dataIda, formatter);
@@ -53,6 +55,8 @@ public class VooController {
 		Voo[] voos = service.findVoo(origem, destino, dataI, classe);
 		ModelAndView mv = new ModelAndView("passagens");
 		mv.addObject("voosIda", voos);
+		mv.addObject("user", session.getAttribute("userlogado"));
+		
 		
 		return mv;
 	}

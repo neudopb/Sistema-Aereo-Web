@@ -13,7 +13,7 @@ public class SistemaAereoWebApplication {
 	@Bean
 	public WebClient webCliente(WebClient.Builder builder) {
 		return builder
-			.baseUrl("http://localhost:8081")
+			.baseUrl("https://mncompany.herokuapp.com")
 			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 			.build();
 	}

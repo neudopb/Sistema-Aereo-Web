@@ -10,7 +10,6 @@ public class Passagem {
 	private Long id;
 	private Usuario idUsuario;
 	private Assento idAssento;
-	private Voo idVoo;
 	private SituacaoPagamento idPagamento;
 
 	public Long getId() {
@@ -43,13 +42,5 @@ public class Passagem {
 
 	public void setIdPagamento(SituacaoPagamento idPagamento) {
 		this.idPagamento = idPagamento;
-	}
-
-	public Voo getIdVoo() {
-		return idVoo;
-	}
-
-	public void setIdVoo(Voo idVoo) {
-		this.idVoo = idVoo;
 	}
 }

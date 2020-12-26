@@ -28,7 +28,7 @@ public class PassagemController {
 		Passagem[] passagem = service.passagemUser(id);
 		
 		ModelAndView mv = new ModelAndView("reservas")
-				.addObject("passagem", passagem);
+				.addObject("passagens", passagem);
 		
 		return mv;
 	}

@@ -50,9 +50,7 @@ public class VooService {
 				.bodyToMono(Assento[].class);
 		
 		Assento[] assento = monoA.block();
-		
-		//Assento[] aux = new Assento[assento.length];
-		
+				
 		for (Voo v : voo) {
 			List<Assento> aux = new ArrayList<>();
 			for(Assento a : assento) {
@@ -62,6 +60,7 @@ public class VooService {
 				}
 			}
 			v.setAssentos(aux);
+			
 		}
 		
 		return voo;

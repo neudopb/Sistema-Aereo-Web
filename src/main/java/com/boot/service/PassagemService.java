@@ -52,23 +52,23 @@ public class PassagemService {
 		passagem.setIdAssento(pas.getIdAssento());
 		passagem.setIdPagamento(pas.getIdPagamento());
 		
-		Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")
-				.body(BodyInserters.fromValue(passagem))
-				.retrieve()
-				.bodyToMono(Passagem.class);
-		
-		//monoPassagem.block();
-		
-		Assento assento = pas.getIdAssento();
-		assento.setDisponibilidade(false);
-		
-		Mono<Assento> monoAs = this.webClient.put()
-				.uri("/api/passagem/update")
-				.body(BodyInserters.fromValue(assento))
-				.retrieve()
-				.bodyToMono(Assento.class);
-		
-		Mono.zip(monoPassagem, monoAs).block();
+		if(passagem.getIdAssento().isDisponibilidade()) {
+			Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")
+					.body(BodyInserters.fromValue(passagem))
+					.retrieve()
+					.bodyToMono(Passagem.class);
+					
+			Assento assento = pas.getIdAssento();
+			assento.setDisponibilidade(false);
+			
+			Mono<Assento> monoAs = this.webClient.put()
+					.uri("/api/passagem/update")
+					.body(BodyInserters.fromValue(assento))
+					.retrieve()
+					.bodyToMono(Assento.class);
+			
+			Mono.zip(monoPassagem, monoAs).block();
+		}
 
 		return passagemUser(idUser);
 

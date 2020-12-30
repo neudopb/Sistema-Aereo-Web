@@ -66,7 +66,7 @@ public class VooService {
 		
 		for (Voo v : voo) {
 			Mono<Assento[]> monoA = this.webClient.get()
-					.uri("/api/assento/findassentodisp/{id}", v.getId())
+					.uri("/api/assento/findassentodispclasse/{id}/{classe}", v.getId(), classe)
 					.retrieve()
 					.bodyToMono(Assento[].class);
 			

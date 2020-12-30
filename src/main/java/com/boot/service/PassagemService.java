@@ -31,11 +31,14 @@ public class PassagemService {
 		Mono<Assento> monoAssento = this.webClient.get().uri("/api/assento/findid/{id}", idAssento).retrieve()
 				.bodyToMono(Assento.class);
 		Assento assento = monoAssento.block();
-
+		System.out.println("testetstetsetstest" + assento + " " + assento.getId() + " " + assento.getIdVoo());
+		
 		Mono<SituacaoPagamento> monoSit = this.webClient.get().uri("/api/sitpag/findid/{id}", 1).retrieve()
 				.bodyToMono(SituacaoPagamento.class);
 		SituacaoPagamento situacaoPagamento = monoSit.block();
 
+		System.out.println("testetstetsetstest" + situacaoPagamento + " " + situacaoPagamento.getId());
+		
 		Passagem passagem = new Passagem();
 		passagem.setUsuario(usuario);
 		passagem.setIdAssento(assento);
@@ -43,9 +46,9 @@ public class PassagemService {
 
 		if (assento.isDisponibilidade()) {
 			assento.setDisponibilidade(false);
+			assento.setIdVoo(assento.getIdVoo());
 			Mono<Assento> monoAs = this.webClient.put().uri("/api/assento/update")
 					.body(BodyInserters.fromValue(assento)).retrieve().bodyToMono(Assento.class);
-
 			monoAs.block();
 
 			Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")

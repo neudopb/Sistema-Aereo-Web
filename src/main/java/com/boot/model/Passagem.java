@@ -8,7 +8,7 @@ import lombok.Data;
 public class Passagem {
 
 	private Long id;
-	private Usuario idUsuario;
+	private String usuario;
 	private Assento idAssento;
 	private SituacaoPagamento idPagamento;
 
@@ -20,12 +20,12 @@ public class Passagem {
 		this.id = id;
 	}
 
-	public Usuario getIdUsuario() {
-		return idUsuario;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void setIdUsuario(Usuario idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public Assento getIdAssento() {

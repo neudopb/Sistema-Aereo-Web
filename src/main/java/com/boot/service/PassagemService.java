@@ -8,7 +8,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import com.boot.model.Assento;
 import com.boot.model.Passagem;
 import com.boot.model.SituacaoPagamento;
-import com.boot.model.Usuario;
 
 import reactor.core.publisher.Mono;
 
@@ -18,9 +17,8 @@ public class PassagemService {
 	@Autowired
 	private WebClient webClient;
 
-	public Passagem[] passagemUser(Long id) {
-		Mono<Passagem[]> mono = this.webClient.get().uri("/api/passagem/finduser/{id}", id)
-				.retrieve()
+	public Passagem[] passagemUser(String usuario) {
+		Mono<Passagem[]> mono = this.webClient.get().uri("/api/passagem/finduser/{usuario}", usuario).retrieve()
 				.bodyToMono(Passagem[].class);
 
 		Passagem[] passagens = mono.block();
@@ -28,49 +26,37 @@ public class PassagemService {
 		return passagens;
 	}
 
-	public Passagem[] passagemSave(Long idUser, Long idAssento) {
-		Mono<Usuario> monoUser = this.webClient.get().uri("/api/usuario/findid/{id}", idUser).retrieve()
-				.bodyToMono(Usuario.class);
+	public Passagem passagemSave(String usuario, Long idAssento) {
 
 		Mono<Assento> monoAssento = this.webClient.get().uri("/api/assento/findid/{id}", idAssento).retrieve()
 				.bodyToMono(Assento.class);
+		Assento assento = monoAssento.block();
 
-		Mono<SituacaoPagamento> monoSit = this.webClient.get().uri("/api/sitpag/findid/{id}", 2).retrieve()
+		Mono<SituacaoPagamento> monoSit = this.webClient.get().uri("/api/sitpag/findid/{id}", 1).retrieve()
 				.bodyToMono(SituacaoPagamento.class);
-		
-		Passagem pas = Mono.zip(monoUser, monoAssento, monoSit).map(tuple -> {
-			Passagem passagem = new Passagem();
-			passagem.setIdUsuario(tuple.getT1());
-			passagem.setIdAssento(tuple.getT2());
-			passagem.setIdPagamento(tuple.getT3());
+		SituacaoPagamento situacaoPagamento = monoSit.block();
 
-			return passagem;
-		}).block();
-		
 		Passagem passagem = new Passagem();
-		passagem.setIdUsuario(pas.getIdUsuario());
-		passagem.setIdAssento(pas.getIdAssento());
-		passagem.setIdPagamento(pas.getIdPagamento());
-		
-		if(passagem.getIdAssento().isDisponibilidade()) {
-			Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")
-					.body(BodyInserters.fromValue(passagem))
-					.retrieve()
-					.bodyToMono(Passagem.class);
-					
-			Assento assento = pas.getIdAssento();
+		passagem.setUsuario(usuario);
+		passagem.setIdAssento(assento);
+		passagem.setIdPagamento(situacaoPagamento);
+
+		if (assento.isDisponibilidade()) {
 			assento.setDisponibilidade(false);
+			Mono<Assento> monoAs = this.webClient.put().uri("/api/assento/update")
+					.body(BodyInserters.fromValue(assento)).retrieve().bodyToMono(Assento.class);
+
+			monoAs.block();
+
+			Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")
+					.body(BodyInserters.fromValue(passagem)).retrieve().bodyToMono(Passagem.class);
+			Passagem pas= monoPassagem.block();
 			
-			Mono<Assento> monoAs = this.webClient.put()
-					.uri("/api/passagem/update")
-					.body(BodyInserters.fromValue(assento))
-					.retrieve()
-					.bodyToMono(Assento.class);
-			
-			Mono.zip(monoPassagem, monoAs).block();
+			return pas;
+
 		}
 
-		return passagemUser(idUser);
+		return null;
 
 	}
 }

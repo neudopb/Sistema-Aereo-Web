@@ -22,9 +22,9 @@ public class PassagemController {
 
 	@GetMapping("/minhasreservas")
 	public ModelAndView minhasReservas(HttpSession session) {
-		Long id = (Long) session.getAttribute("userlogado");
+		String usuario = (String) session.getAttribute("userlogado");
 
-		Passagem[] passagem = service.passagemUser(id);
+		Passagem[] passagem = service.passagemUser(usuario);
 
 		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagem);
 
@@ -32,9 +32,9 @@ public class PassagemController {
 	}
 
 	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
-	public ModelAndView reservar(@RequestParam("assento") Long assento, @RequestParam("idUser") Long usuario) {
+	public ModelAndView reservar(@RequestParam("assento") Long assento, @RequestParam("usuario") String usuario) {
 
-		Passagem[] passagens = service.passagemSave(usuario, assento);
+		Passagem passagens = service.passagemSave(usuario, assento);
 		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
 		return mv;
 

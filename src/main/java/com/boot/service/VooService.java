@@ -2,6 +2,7 @@ package com.boot.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +45,12 @@ public class VooService {
 		
 		Voo[] voo = monoV.block();
 		
-		Mono<Assento[]> monoA = this.webClient.get()
+		/*Mono<Assento[]> monoA = this.webClient.get()
 				.uri("/api/assento/findall")
 				.retrieve()
 				.bodyToMono(Assento[].class);
 		
-		Assento[] assento = monoA.block();
+		Assento[] assento = monoA.block(); //mudar para disponivel
 				
 		for (Voo v : voo) {
 			List<Assento> aux = new ArrayList<>();
@@ -61,6 +62,16 @@ public class VooService {
 			}
 			v.setAssentos(aux);
 			
+		}*/
+		
+		for (Voo v : voo) {
+			Mono<Assento[]> monoA = this.webClient.get()
+					.uri("/api/assento/findassentodisp/{id}", v.getId())
+					.retrieve()
+					.bodyToMono(Assento[].class);
+			
+			Assento[] assentos = monoA.block();
+			v.setAssentos(Arrays.asList(assentos));
 		}
 		
 		return voo;

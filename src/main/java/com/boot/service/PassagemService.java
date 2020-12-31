@@ -32,6 +32,7 @@ public class PassagemService {
 				.bodyToMono(Assento.class);
 		Assento assento = monoAssento.block();
 		System.out.println("testetstetsetstest" + assento + " " + assento.getId() + " " + assento.getIdVoo());
+		//O assento.getIdVoo() VEM NULO
 		
 		Mono<SituacaoPagamento> monoSit = this.webClient.get().uri("/api/sitpag/findid/{id}", 1).retrieve()
 				.bodyToMono(SituacaoPagamento.class);
@@ -41,25 +42,21 @@ public class PassagemService {
 		
 		Passagem passagem = new Passagem();
 		passagem.setUsuario(usuario);
-		passagem.setIdAssento(assento);
 		passagem.setIdPagamento(situacaoPagamento);
+		passagem.setIdAssento(assento);
+	
+		assento.setDisponibilidade(false);
+		Mono<Assento> monoAs = this.webClient.put().uri("/api/assento/update")
+				.body(BodyInserters.fromValue(assento)).retrieve().bodyToMono(Assento.class);
+		monoAs.block();
+		//QUANDO ATUALIZA O assento.voo FICA NULO
 
-		if (assento.isDisponibilidade()) {
-			assento.setDisponibilidade(false);
-			assento.setIdVoo(assento.getIdVoo());
-			Mono<Assento> monoAs = this.webClient.put().uri("/api/assento/update")
-					.body(BodyInserters.fromValue(assento)).retrieve().bodyToMono(Assento.class);
-			monoAs.block();
-
-			Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")
-					.body(BodyInserters.fromValue(passagem)).retrieve().bodyToMono(Passagem.class);
-			Passagem pas= monoPassagem.block();
-			
-			return pas;
-
-		}
-
-		return null;
+		Mono<Passagem> monoPassagem = this.webClient.post().uri("/api/passagem/save")
+				.body(BodyInserters.fromValue(passagem)).retrieve().bodyToMono(Passagem.class);
+		Passagem pas= monoPassagem.block();
+		//QUANDO SALVA A passagem.assento e passagem.pagamento FICAM NULOS
+		
+		return pas;
 
 	}
 }

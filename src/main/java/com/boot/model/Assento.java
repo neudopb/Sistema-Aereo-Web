@@ -12,8 +12,8 @@ public class Assento {
 	private boolean disponibilidade;
 	private String classe;
 	private Float preco;
-	private Voo idVoo;
-
+	private Voo voo;
+	
 	public Long getId() {
 		return id;
 	}
@@ -54,12 +54,12 @@ public class Assento {
 		this.preco = preco;
 	}
 
-	public Voo getIdVoo() {
-		return idVoo;
+	public Voo getVoo() {
+		return voo;
 	}
 
-	public void setIdVoo(Voo idVoo) {
-		this.idVoo = idVoo;
+	public void setVoo(Voo voo) {
+		this.voo = voo;
 	}
 
 }

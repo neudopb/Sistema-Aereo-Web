@@ -9,7 +9,6 @@ public class SituacaoPagamento {
 
 	private Long id;
 	private String status;
-	private Passagem passagem;
 
 	public Long getId() {
 		return id;
@@ -26,13 +25,4 @@ public class SituacaoPagamento {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public Passagem getPassagem() {
-		return passagem;
-	}
-
-	public void setPassagem(Passagem passagem) {
-		this.passagem = passagem;
-	}
-
 }

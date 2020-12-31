@@ -28,28 +28,28 @@
 								<th><p>Assento</p></th>
 								<th><p>Preço</p></th>
 								<th><p>Status do Pagamento</p></th>
-								<th><p>Ação</p></th>
+								<!-- <th><p>Ação</p></th> -->
 
 							</tr>
-							<!-- <tr th:each="r : ${passagens}">
+							<tr th:each="p : ${passagens}">
 								<td>
-									<p th:text="${r.idAssento.idVoo.id}">1</p>
+									<p th:text="${p.id}">1</p>
 								</td>
-								<td><p th:text="${r.idAssento.idVoo.companhia}">Azul</p></td>
+								<td><p th:text="${p.assento.voo.companhia}">Azul</p></td>
 
 								<td>
 									<figure class="media">
 										<figcaption class="media-body">
-											<h6 class="title text-truncate" th:text="${r.idAssento.idVoo.origem}">Fortaleza-CE</h6>
+											<h6 class="title text-truncate" th:text="${p.assento.voo.origem}">Fortaleza-CE</h6>
 											<dl class="param param-inline small">
 												<dd>
-													<b>Data: </b> <label th:text="${r.idAssento.idVoo.dataSaida}">18/11/2020</label>
+													<b>Data: </b> <label th:text="${p.assento.voo.dataSaida}">18/11/2020</label>
 												</dd>
 
 											</dl>
 											<dl class="param param-inline small">
 												<dd>
-													<b>Hora: </b><label th:text="${r.idAssento.idVoo.horaSaida}">20:00</label>
+													<b>Hora: </b><label th:text="${p.assento.voo.horaSaida}">20:00</label>
 												</dd>
 											</dl>
 										</figcaption>
@@ -58,40 +58,40 @@
 								<td>
 									<figure class="media">
 										<figcaption class="media-body">
-											<h6 class="title text-truncate" th:text="${r.idAssento.idVoo.destino}">São Paulo-SP</h6>
+											<h6 class="title text-truncate" th:text="${p.assento.voo.destino}">São Paulo-SP</h6>
 											<dl class="param param-inline small">
 												<dd>
-													<b>Data: </b><label th:text="${r.idAssento.idVoo.dataChegada}">18/11/2020</label>
+													<b>Data: </b><label th:text="${p.assento.voo.dataChegada}">18/11/2020</label>
 												</dd>
 
 											</dl>
 											<dl class="param param-inline small">
 												<dd>
-													<b>Hora: </b><label th:text="${r.idAssento.idVoo.horaChegada}">23:00</label>
+													<b>Hora: </b><label th:text="${p.assento.voo.horaChegada}">23:00</label>
 												</dd>
 											</dl>
 										</figcaption>
 									</figure>
 								</td>
 								<td>
-									<p th:text="${r.idAssento.classe}">Econômica</p>
+									<p th:text="${p.assento.classe}">Econômica</p>
 								</td>
 								<td>
-									<p th:text="${r.idAssento.nome}">A10</p>
+									<p th:text="${p.assento.nome}">A10</p>
 								</td>
 								<td>
-									<p th:text="${r.idAssento.preco}">R$2000.00</p>
+									<p th:text="${p.assento.preco}">R$2000.00</p>
 								</td>
 								<td>
-									<p th:text="${r.idPagamento.status}">Em andamento</p>
+									<p th:text="${p.pagamento.status}">Em andamento</p>
 								</td>
-								<td><a class="btn btn-danger btn-sm" href="" role="button">
+								<!-- <td><a class="btn btn-danger btn-sm" href="#" role="button">
 										<span class="oi oi-circle-x" title="Cancelar"
 										aria-hidden="true"></span>
-								</a> <a class="btn btn-success btn-sm" href="" role="button"> <span
+								</a> <a class="btn btn-success btn-sm" href="#" role="button"> <span
 										class="oi oi-check" title="Pagar" aria-hidden="true"></span>
-								</a></td>
-							</tr> -->
+								</a></td> -->
+							</tr>
 						</tbody>
 					</table>
 				</div>

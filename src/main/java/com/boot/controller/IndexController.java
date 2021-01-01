@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.boot.model.Passagem;
 import com.boot.model.Usuario;
+import com.boot.service.PassagemService;
 import com.boot.service.UsuarioService;
 
 @Controller
@@ -16,6 +18,11 @@ public class IndexController {
 
 	@Autowired
 	private UsuarioService service;
+	
+	@Autowired
+	private PassagemService servicePassagem;
+	
+	private String emailUser;
 
 	@GetMapping("/")
 	public String login(Usuario usuario) {
@@ -49,7 +56,9 @@ public class IndexController {
 
 		session.setAttribute("userlogado", user.getEmail());
 		ModelAndView mv = new ModelAndView("home").addObject("logado", session.getAttribute("userlogado"));
-
+		
+		this.emailUser = user.getEmail();
+		
 		return mv;
 
 	}
@@ -65,6 +74,16 @@ public class IndexController {
 			mv.addObject("usuario", user);
 		} else
 			mv.addObject("erro", "Erro ao cadastrar usuário");
+
+		return mv;
+	}
+	
+	@GetMapping("/minhasreservas")
+	public ModelAndView minhasReservas(HttpSession session) {
+
+		Passagem[] passagens = servicePassagem.passagemUser(this.emailUser);
+
+		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
 
 		return mv;
 	}

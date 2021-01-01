@@ -10227,6 +10227,7 @@ img::-moz-selection {
     color: #ffffff;
 }
 
+/*Menu Maria*/
 @media (min-width: 992px) {
     #mainNav {
         padding-top: 1.5rem;
@@ -10239,8 +10240,9 @@ img::-moz-selection {
         font-size: 1.5em;
         transition: font-size 0.3s ease-in-out;
     }
+    /*Logo Maria*/
     #mainNav .navbar-brand img {
-        height: 6rem;
+        height: 3rem;
         transition: height 0.3s ease-in-out;
     }
     #mainNav.navbar-shrink {

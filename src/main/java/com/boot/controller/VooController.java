@@ -57,6 +57,14 @@ public class VooController {
 		mv.addObject("voosIda", voos);
 		mv.addObject("user", session.getAttribute("userlogado"));
 		
+		String preco;
+		if(classe.equals("Economica"))
+			preco = "R$ 1000.00";
+		else
+			preco = "R$ 2000.00";
+		
+		mv.addObject("preco", preco);
+			
 		
 		return mv;
 	}

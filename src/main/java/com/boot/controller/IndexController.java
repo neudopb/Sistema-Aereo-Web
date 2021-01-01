@@ -12,7 +12,7 @@ import com.boot.model.Usuario;
 import com.boot.service.UsuarioService;
 
 @Controller
-public class UsuarioController {
+public class IndexController {
 
 	@Autowired
 	private UsuarioService service;

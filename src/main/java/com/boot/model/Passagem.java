@@ -9,8 +9,8 @@ public class Passagem {
 
 	private Long id;
 	private String usuario;
-	private Assento idAssento;
-	private SituacaoPagamento idPagamento;
+	private Assento assento;
+	private SituacaoPagamento pagamento;
 
 	public Long getId() {
 		return id;
@@ -28,19 +28,19 @@ public class Passagem {
 		this.usuario = usuario;
 	}
 
-	public Assento getIdAssento() {
-		return idAssento;
+	public Assento getAssento() {
+		return assento;
 	}
 
-	public void setIdAssento(Assento idAssento) {
-		this.idAssento = idAssento;
+	public void setAssento(Assento assento) {
+		this.assento = assento;
 	}
 
-	public SituacaoPagamento getIdPagamento() {
-		return idPagamento;
+	public SituacaoPagamento getPagamento() {
+		return pagamento;
 	}
 
-	public void setIdPagamento(SituacaoPagamento idPagamento) {
-		this.idPagamento = idPagamento;
+	public void setPagamento(SituacaoPagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 }

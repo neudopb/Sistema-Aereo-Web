@@ -92,5 +92,4 @@ public class Voo {
 	public void setAssentos(List<Assento> assentos) {
 		this.assentos = assentos;
 	}
-
 }

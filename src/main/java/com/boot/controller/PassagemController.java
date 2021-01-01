@@ -34,7 +34,7 @@ public class PassagemController {
 	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
 	public ModelAndView reservar(@RequestParam("assento") Long assento, @RequestParam("usuario") String usuario) {
 
-		Passagem passagens = service.passagemSave(usuario, assento);
+		Passagem[] passagens = service.passagemSave(usuario, assento);
 		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
 		return mv;
 

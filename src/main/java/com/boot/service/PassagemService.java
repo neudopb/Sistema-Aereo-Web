@@ -43,6 +43,7 @@ public class PassagemService {
 		Passagem passagem = new Passagem();
 		passagem.setUsuario(usuario);
 		passagem.setIdPagamento(situacaoPagamento);
+		System.out.println("testando12334555" + situacaoPagamento);
 		passagem.setIdAssento(assento);
 	
 		assento.setDisponibilidade(false);

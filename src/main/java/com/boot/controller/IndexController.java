@@ -10,14 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.boot.model.Passagem;
 import com.boot.model.Usuario;
+import com.boot.service.IndexService;
 import com.boot.service.PassagemService;
-import com.boot.service.UsuarioService;
 
 @Controller
 public class IndexController {
 
 	@Autowired
-	private UsuarioService service;
+	private IndexService service;
 	
 	@Autowired
 	private PassagemService servicePassagem;

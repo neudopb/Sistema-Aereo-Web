@@ -13,22 +13,12 @@ public class SistemaAereoWebApplication {
 	@Bean
 	public WebClient webCliente(WebClient.Builder builder) {
 		return builder
-			//.baseUrl("https://mncompany.herokuapp.com")
-			.baseUrl("http://localhost:8081")
+			.baseUrl("https://mncompany.herokuapp.com")
+			//.baseUrl("http://localhost:8081")
 			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 			.build();
 	}
 	
-	/*
-	@Bean @Qualifier("wsPassagem")
-	public WebClient wcPassagem(WebClient.Builder builder) {
-		return builder
-			.baseUrl("https://api-projetopagamento.herokuapp.com")
-			.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-			.build();
-	} 
-	 */
-
 	public static void main(String[] args) {
 		SpringApplication.run(SistemaAereoWebApplication.class, args);
 	}

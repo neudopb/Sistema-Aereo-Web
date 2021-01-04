@@ -1,6 +1,5 @@
 package com.boot.controller;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -23,49 +22,53 @@ import reactor.core.publisher.Mono;
 @Controller
 @RequestMapping(value = "/voo")
 public class VooController {
-	
+
 	@Autowired
 	private VooService service;
 
 	@GetMapping("/findall")
 	public ModelAndView findAll() {
 		Voo[] voos = service.findAll();
-		System.out.println("dfhjsdfhvshavskhvahskvahkdva " + voos);
 		ModelAndView mv = new ModelAndView("passagens");
 		mv.addObject("voosIda", voos);
-		
+
 		return mv;
 	}
-	
+
 	@GetMapping("/findid/{id}")
 	public Mono<Voo> findId(@PathVariable("id") Long id) {
 		return service.findId(id);
 	}
-	
-	//@GetMapping("/findvoo/{origem}/{destino}/{dataIda}/{dataVolta}/{classe}/")
-	@RequestMapping(value="/findvoo", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/findvoo", method = RequestMethod.GET)
 	public ModelAndView findVoo(@RequestParam("origem") String origem, @RequestParam("destino") String destino,
-			@RequestParam("dataIda") String dataIda, @RequestParam("dataVolta") String dataVolta, 
+			@RequestParam("dataIda") String dataIda, @RequestParam("dataVolta") String dataVolta,
 			@RequestParam("classe") String classe, HttpSession session) {
-		
+
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		LocalDate dataI = LocalDate.parse(dataIda, formatter);
-		LocalDate dataV = LocalDate.parse(dataIda, formatter);
 
-		Voo[] voos = service.findVoo(origem, destino, dataI, classe);
+		Voo[] voosI = service.findVoo(origem, destino, dataI, classe);
+
 		ModelAndView mv = new ModelAndView("passagens");
-		mv.addObject("voosIda", voos);
-		mv.addObject("user", session.getAttribute("userlogado"));
-		
+		mv.addObject("voosIda", voosI);
+
+		if (!dataVolta.isEmpty()) {
+			LocalDate dataV = LocalDate.parse(dataVolta, formatter);
+			Voo[] voosV = service.findVoo(destino, origem, dataV, classe);
+			mv.addObject("voosVolta", voosV);
+			System.out.println("ENTROUU " + voosV[0].getId());
+		}
+
 		String preco;
-		if(classe.equals("Economica"))
+		if (classe.equals("Economica"))
 			preco = "R$ 1000.00";
 		else
 			preco = "R$ 2000.00";
-		
+
 		mv.addObject("preco", preco);
-			
-		
+		mv.addObject("user", session.getAttribute("userlogado"));
+
 		return mv;
 	}
 }

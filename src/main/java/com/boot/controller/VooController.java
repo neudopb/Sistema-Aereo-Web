@@ -57,7 +57,6 @@ public class VooController {
 			LocalDate dataV = LocalDate.parse(dataVolta, formatter);
 			Voo[] voosV = service.findVoo(destino, origem, dataV, classe);
 			mv.addObject("voosVolta", voosV);
-			System.out.println("ENTROUU " + voosV[0].getId());
 		}
 
 		String preco;

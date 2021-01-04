@@ -48,16 +48,17 @@ public class IndexController {
 
 	@PostMapping("/home")
 	public ModelAndView logar(Usuario usuario, HttpSession session) {
-		Usuario user = service.findEmailSenha(usuario);
+		String token = service.findEmailSenha(usuario);
 
-		if (user == null) {
+		if (token == null) {
 			return new ModelAndView("login").addObject("erro", "E-mail e/ou senha incorreto");
 		}
 
-		session.setAttribute("userlogado", user.getEmail());
+		session.setAttribute("userlogado", usuario.getEmail());
+		session.setAttribute("token", token);
 		ModelAndView mv = new ModelAndView("home").addObject("logado", session.getAttribute("userlogado"));
 		
-		this.emailUser = user.getEmail();
+		this.emailUser = usuario.getEmail();
 		
 		return mv;
 

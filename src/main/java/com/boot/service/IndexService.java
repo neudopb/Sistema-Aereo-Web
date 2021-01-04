@@ -37,16 +37,23 @@ public class IndexService {
 		
 	}
 	
-	public Usuario findEmailSenha(Usuario usuario) {
-		Mono<Usuario> mono = this.webClient
-				.post()
-				.uri("api/usuario/findemailsenha")
-				.body(BodyInserters.fromValue(usuario))
-				.retrieve()
-				.bodyToMono(Usuario.class);
+	public String findEmailSenha(Usuario usuario) {
+		try {
+			Mono<String> mono = this.wcPassagem
+					.post()
+					.uri("api/usuarios/login")
+					.body(BodyInserters.fromValue(usuario))
+					.retrieve()
+					.bodyToMono(String.class);
+			System.out.println("TESTE mono " + mono);
+			String token = mono.block();
+			System.out.println("TESTE user " + token);
+			return token;
+		} catch (Exception e) {
+			System.out.println("ERRO ");
+			e.printStackTrace();
+			return null;
+		}
 		
-		Usuario user = mono.block();
-		
-		return user;
 	}
 }

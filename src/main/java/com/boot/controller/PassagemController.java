@@ -30,9 +30,12 @@ public class PassagemController {
 	}*/
 
 	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
-	public ModelAndView reservar(@RequestParam("assento") Long assento, @RequestParam("usuario") String usuario) {
+	public ModelAndView reservar(@RequestParam("assentoIda") Long assentoI, @RequestParam("assentoVolta") Long assentoV, @RequestParam("usuario") String usuario) {
 
-		Passagem[] passagens = service.passagemSave(usuario, assento);
+		Passagem[] passagens = service.passagemSave(usuario, assentoI);
+		if(assentoV != null) {
+			passagens = service.passagemSave(usuario, assentoV);
+		}
 		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
 		return mv;
 

@@ -10824,3 +10824,7 @@ var {
     max-height: 75px;
     object-fit: cover;
 }
+
+.table-teste {
+	background-color: gray;
+}

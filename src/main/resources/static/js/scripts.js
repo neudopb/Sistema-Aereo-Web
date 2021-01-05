@@ -1,8 +1,3 @@
-/*!
- * Start Bootstrap - Agency v6.0.2 (https://startbootstrap.com/template-overviews/agency)
- * Copyright 2013-2020 Start Bootstrap
- * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
- */
 (function($) {
     "use strict"; // Start of use strict
 
@@ -55,15 +50,44 @@
 
     $('#meuModal').on('shown.bs.modal', function() {
         $('#meuInput').trigger('focus')
-    })
-    
-   /* $("#dataIda").datepicker({
-    	minDate:0
     });
     
-    var data = document.getElementById("dataIda").value;
-    $("#dataVolta").datepicker({
-    	datesDisabled: data
+    $(document).ready(function(){
+ 	   $("#resposta").find("input[type='radio']").click(function(){
+ 	      var idRadio = $(this).attr("id");
+ 	      var aux = idRadio.split("radio");
+ 	      
+ 	      if(aux[0] === "I") {
+ 	    	 var idSelect = "selectI" + aux[1];
+ 	    	 $('.disabilitarI').prop('disabled', true);
+ 	    	 $('.disabilitarI').prop('required', false);
+ 	    	 $('#' + idSelect).prop('disabled', false);
+ 	    	 $('.disabilitarI').prop('required', true);
+ 	    	 $('.trCorI').css('backgroundColor', '');
+ 	    	 $('#trI' + aux[1]).css('backgroundColor', '#7FFFD4');
+ 	      } else {
+ 	    	 var idSelect = "selectV" + aux[1]; 
+ 	    	 $('.disabilitarV').prop('disabled', true);
+ 	    	 $('.disabilitarV').prop('required', false);
+ 	    	 $('#' + idSelect).prop('disabled', false);
+ 	    	 $('.disabilitarV').prop('required', true);
+ 	    	 $('.trCorV').css('backgroundColor', '');
+	    	 $('#trV' + aux[1]).css('backgroundColor', '#7FFFD4');
+ 	      }
+ 	      
+ 	      
+ 	      //alert(idSelect);
+ 	   });
+ 	});
+    
+   /* $('.disabilitarI').change(function (){
+    	$('#assentoI').val($(this).val());
+        alert($('#assentoI').val());
     });
-*/
-})(jQuery); // End of use strict
+    
+    $('.disabilitarV').change(function (){
+    	$('#assentoV').val($(this).val());
+        alert($('#assentoV').val());
+    });*/
+    
+})(jQuery);

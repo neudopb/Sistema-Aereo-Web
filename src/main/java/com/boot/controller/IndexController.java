@@ -48,21 +48,14 @@ public class IndexController {
 
 	@PostMapping("/home")
 	public ModelAndView logar(Usuario usuario, HttpSession session) {
-		/*String token = service.findEmailSenha(usuario);
+		Usuario user = service.login(usuario);
 
-		if (token == null) {
-			return new ModelAndView("login").addObject("erro", "E-mail e/ou senha incorreto");
+		if (user == null) {
+			return new ModelAndView("login").addObject("fail", "E-mail e/ou senha incorreto");
 		}
 
 		session.setAttribute("userlogado", usuario.getEmail());
-		session.setAttribute("token", token);
-		ModelAndView mv = new ModelAndView("home").addObject("logado", session.getAttribute("userlogado"));
-		
-		this.emailUser = usuario.getEmail();
-		
-		return mv;*/
-		
-		session.setAttribute("userlogado", usuario.getEmail());
+		session.setAttribute("token", user.getToken());
 		ModelAndView mv = new ModelAndView("home").addObject("logado", session.getAttribute("userlogado"));
 		
 		this.emailUser = usuario.getEmail();
@@ -81,7 +74,7 @@ public class IndexController {
 			mv.addObject("sucess", "Usuário cadastrado com sucesso");
 			mv.addObject("usuario", user);
 		} else
-			mv.addObject("erro", "Erro ao cadastrar usuário");
+			mv.addObject("fail", "Erro ao cadastrar usuário");
 
 		return mv;
 	}
@@ -90,9 +83,12 @@ public class IndexController {
 	public ModelAndView minhasReservas(HttpSession session) {
 
 		Passagem[] passagens = servicePassagem.passagemUser(this.emailUser);
-
-		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
-
+		ModelAndView mv;
+		
+		if(passagens != null)
+			mv = new ModelAndView("reservas").addObject("passagens", passagens);
+		else
+			mv = new ModelAndView("home").addObject("alert", "Você não tem reservas");
 		return mv;
 	}
 

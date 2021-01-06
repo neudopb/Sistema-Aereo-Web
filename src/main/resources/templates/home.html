@@ -11,6 +11,7 @@
 		<!-- Masthead-->
 		<header class="masthead" id="inicio">
 			<div class="container teste">
+				<div th:replace="fragments/alert"></div>
 				<div class="hotel-search-form">
 					<form th:action="@{/voo/findvoo}" th:object="${voo}"
 						method="GET">

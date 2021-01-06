@@ -1,7 +1,6 @@
 package com.boot.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.boot.model.Usuario;
@@ -17,8 +16,12 @@ public class IndexService {
 		
 		try {
 			Mono<Usuario> mono = this.wcPassagem.post()
-					.uri("api/usuarios/save")
-					.body(BodyInserters.fromValue(usuario))
+					.uri(uriBuilder -> uriBuilder
+						.path("api/usuarios/save")
+						.queryParam("nome", usuario.getNome())
+						.queryParam("email", usuario.getEmail())
+						.queryParam("senha", usuario.getSenha())
+						.build())
 					.retrieve()
 					.bodyToMono(Usuario.class);
 			Usuario user = mono.block();
@@ -29,16 +32,19 @@ public class IndexService {
 		
 	}
 	
-	public String findEmailSenha(Usuario usuario) {
+	public Usuario login(Usuario usuario) {
 		try {
-			Mono<String> mono = this.wcPassagem
-					.post()
-					.uri("api/usuarios/login")
-					.body(BodyInserters.fromValue(usuario))
+			Mono<Usuario> mono = this.wcPassagem.post()
+					.uri(uriBuilder -> uriBuilder
+						.path("api/usuarios/login")
+						.queryParam("email", usuario.getEmail())
+						.queryParam("senha", usuario.getSenha())
+						.build())
 					.retrieve()
-					.bodyToMono(String.class);
-			String token = mono.block();
-			return token;
+					.bodyToMono(Usuario.class);
+			Usuario user = mono.block();
+			
+			return user;
 		} catch (Exception e) {
 			return null;
 		}

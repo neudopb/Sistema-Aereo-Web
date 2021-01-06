@@ -11,6 +11,7 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
+	private String token;
 
 	public Long getId() {
 		return id;
@@ -42,5 +43,13 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

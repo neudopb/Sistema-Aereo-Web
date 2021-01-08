@@ -75,19 +75,19 @@
 	    	 $('#trV' + aux[1]).css('backgroundColor', '#7FFFD4');
  	      }
  	      
- 	      
- 	      //alert(idSelect);
  	   });
  	});
     
-   /* $('.disabilitarI').change(function (){
-    	$('#assentoI').val($(this).val());
-        alert($('#assentoI').val());
+    $('#dataIda').ready(function (){
+    	var today = new Date().toISOString().split('T')[0];
+    	document.querySelector('#dataIda').setAttribute('min',today);
     });
-    
-    $('.disabilitarV').change(function (){
-    	$('#assentoV').val($(this).val());
-        alert($('#assentoV').val());
-    });*/
+   
+    $('#dataIda').change(function (){
+    	var novaData = new Date( $('#dataIda').val());
+    	novaData.setDate(novaData.getDate() + 1);
+    	novaData = novaData.toISOString().split('T')[0];
+    	document.querySelector('#dataVolta').setAttribute('min',novaData);
+    });
     
 })(jQuery);

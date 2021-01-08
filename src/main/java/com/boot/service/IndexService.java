@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class IndexService {
 	
-	private WebClient wcPassagem = WebClient.create("https://api-projetopagamento.herokuapp.com");
+	private WebClient wcPassagem = WebClient.create("https://projeto-pag-api.herokuapp.com");
 	
 	public Usuario save(Usuario usuario){
 		
@@ -43,7 +43,6 @@ public class IndexService {
 					.retrieve()
 					.bodyToMono(Usuario.class);
 			Usuario user = mono.block();
-			
 			return user;
 		} catch (Exception e) {
 			return null;

@@ -43,25 +43,6 @@ public class VooService {
 		
 		Voo[] voo = monoV.block();
 		
-		/*Mono<Assento[]> monoA = this.webClient.get()
-				.uri("/api/assento/findall")
-				.retrieve()
-				.bodyToMono(Assento[].class);
-		
-		Assento[] assento = monoA.block(); //mudar para disponivel
-				
-		for (Voo v : voo) {
-			List<Assento> aux = new ArrayList<>();
-			for(Assento a : assento) {
-				if(v.getId() == a.getIdVoo().getId() &&
-						a.isDisponibilidade() && a.getClasse().equals(classe)) {
-					aux.add(a);
-				}
-			}
-			v.setAssentos(aux);
-			
-		}*/
-		
 		for (Voo v : voo) {
 			Mono<Assento[]> monoA = this.webClient.get()
 					.uri("/api/assento/findassentodispclasse/{id}/{classe}", v.getId(), classe)
@@ -71,8 +52,8 @@ public class VooService {
 			Assento[] assentos = monoA.block();
 			v.setAssentos(Arrays.asList(assentos));
 		}
-		
 		return voo;
+		
 		} catch (Exception e) {
 			return null;
 		}

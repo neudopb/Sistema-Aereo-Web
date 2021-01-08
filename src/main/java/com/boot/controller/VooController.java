@@ -49,6 +49,10 @@ public class VooController {
 		LocalDate dataI = LocalDate.parse(dataIda, formatter);
 
 		Voo[] voosI = service.findVoo(origem, destino, dataI, classe);
+		
+		if(voosI.length  ==  0) {
+			return new ModelAndView("home").addObject("alert", "Busca sem resultados");
+		}
 
 		ModelAndView mv = new ModelAndView("passagens");
 		mv.addObject("voosIda", voosI);

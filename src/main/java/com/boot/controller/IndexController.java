@@ -21,8 +21,6 @@ public class IndexController {
 	
 	@Autowired
 	private PassagemService servicePassagem;
-	
-	private String emailUser;
 
 	@GetMapping("/")
 	public String login(Usuario usuario) {
@@ -49,7 +47,8 @@ public class IndexController {
 	@PostMapping("/home")
 	public ModelAndView logar(Usuario usuario, HttpSession session) {
 		Usuario user = service.login(usuario);
-
+		System.out.println("INDEXCONTROLLER LOGIN " + user);	
+		
 		if (user == null) {
 			return new ModelAndView("login").addObject("fail", "E-mail e/ou senha incorreto");
 		}
@@ -57,9 +56,7 @@ public class IndexController {
 		session.setAttribute("userlogado", usuario.getEmail());
 		session.setAttribute("token", user.getToken());
 		ModelAndView mv = new ModelAndView("home").addObject("logado", session.getAttribute("userlogado"));
-		
-		this.emailUser = usuario.getEmail();
-		
+				
 		return mv;
 
 	}
@@ -82,14 +79,14 @@ public class IndexController {
 	@GetMapping("/minhasreservas")
 	public ModelAndView minhasReservas(HttpSession session) {
 
-		Passagem[] passagens = servicePassagem.passagemUser(this.emailUser);
+		Passagem[] passagens = servicePassagem.passagemUser((String)session.getAttribute("userlogado"));
 		ModelAndView mv;
 		
-		if(passagens != null)
+		if(passagens.length != 0)
 			mv = new ModelAndView("reservas").addObject("passagens", passagens);
 		else
 			mv = new ModelAndView("home").addObject("alert", "Você não tem reservas");
 		return mv;
 	}
-
+	
 }

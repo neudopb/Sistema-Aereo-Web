@@ -83,71 +83,73 @@
 
 									</select></td>
 								</tr>
-							<tr>
-								<td class="table-teste" colspan="7"></td>
-							</tr>
-							<tr th:id="${'trV' + v.id}" class="trCorV"
-								th:each="v : ${voosVolta}">
-								<td><input type="radio" th:id="${'Vradio' + v.id}"
-									name="radioVolta" value="radioVolta" required></td>
-								<td>
-									<h3>VOLTA</h3>
-									<p th:text="${v.companhia}">AZUL</p>
-								</td>
-								<td>
-									<figure class="media">
-										<figcaption class="media-body">
-											<h6 class="title text-truncate" th:text="${v.origem}">Fortaleza-CE</h6>
-											<dl class="param param-inline small">
-												<dd>
-													<b>Data: </b><label th:text="${v.dataSaida}">
-														18/11/2020</label>
-												</dd>
-
-											</dl>
-											<dl class="param param-inline small">
-												<dd>
-													<b>Hora: </b><label th:text="${v.horaSaida}"> 20:00</label>
-												</dd>
-											</dl>
-										</figcaption>
-									</figure>
-								</td>
-								<td><i class="fas fa-arrow-right"></i></td>
-
-								<td>
-									<figure class="media">
-										<figcaption class="media-body">
-											<h6 class="title text-truncate" th:text="${v.destino}">São
-												Paulo-SP</h6>
-											<dl class="param param-inline small">
-												<dd>
-													<b>Data: </b><label th:text="${v.dataChegada}">
-														18/11/2020</label>
-												</dd>
-
-											</dl>
-											<dl class="param param-inline small">
-												<dd>
-													<b>Hora: </b><label th:text="${v.horaChegada}">
-														23:00</label>
-												</dd>
-											</dl>
-										</figcaption>
-									</figure>
-								</td>
-								<td><label th:text="${preco}"><b>R$4000.00</b></label></td>
-								<td><label><b>Assento</b></label><br> <select
-									th:id="${'selectV' + v.id}" class="disabilitarV"
-									name="assentoVolta" disabled>
-										<option value="" disabled selected>Selecione</option>
-										<option th:each=" a : ${v.assentos}" th:value="${a.id}"
-											th:text="${a.nome}"></option>
-
-								</select></td>
-							</tr>
-							<input type="hidden" name="usuario" th:value="${user}">
-							<tr>
+								<div th:if="${voosVolta} != null">
+								<tr>
+									<td class="table-teste" colspan="7"></td>
+								</tr>
+								</div>
+								<tr th:id="${'trV' + v.id}" class="trCorV"
+									th:each="v : ${voosVolta}">
+									<td><input type="radio" th:id="${'Vradio' + v.id}"
+										name="radioVolta" value="radioVolta" required></td>
+									<td>
+										<h3>VOLTA</h3>
+										<p th:text="${v.companhia}">AZUL</p>
+									</td>
+									<td>
+										<figure class="media">
+											<figcaption class="media-body">
+												<h6 class="title text-truncate" th:text="${v.origem}">Fortaleza-CE</h6>
+												<dl class="param param-inline small">
+													<dd>
+														<b>Data: </b><label th:text="${v.dataSaida}">
+															18/11/2020</label>
+													</dd>
+	
+												</dl>
+												<dl class="param param-inline small">
+													<dd>
+														<b>Hora: </b><label th:text="${v.horaSaida}"> 20:00</label>
+													</dd>
+												</dl>
+											</figcaption>
+										</figure>
+									</td>
+									<td><i class="fas fa-arrow-right"></i></td>
+	
+									<td>
+										<figure class="media">
+											<figcaption class="media-body">
+												<h6 class="title text-truncate" th:text="${v.destino}">São
+													Paulo-SP</h6>
+												<dl class="param param-inline small">
+													<dd>
+														<b>Data: </b><label th:text="${v.dataChegada}">
+															18/11/2020</label>
+													</dd>
+	
+												</dl>
+												<dl class="param param-inline small">
+													<dd>
+														<b>Hora: </b><label th:text="${v.horaChegada}">
+															23:00</label>
+													</dd>
+												</dl>
+											</figcaption>
+										</figure>
+									</td>
+									<td><label th:text="${preco}"><b>R$4000.00</b></label></td>
+									<td><label><b>Assento</b></label><br> <select
+										th:id="${'selectV' + v.id}" class="disabilitarV"
+										name="assentoVolta" disabled>
+											<option value="" disabled selected>Selecione</option>
+											<option th:each=" a : ${v.assentos}" th:value="${a.id}"
+												th:text="${a.nome}"></option>
+	
+									</select></td>
+								</tr>
+								<input type="hidden" name="usuario" th:value="${user}">
+								<tr>
 								<td class="text-right" colspan="6"></td>
 								<td class="text-right" align="center">
 									<button type="submit"

@@ -22,7 +22,6 @@ public class PassagemService {
 				.bodyToMono(Passagem[].class);
 
 		Passagem[] passagens = mono.block();
-
 		return passagens;
 	}
 

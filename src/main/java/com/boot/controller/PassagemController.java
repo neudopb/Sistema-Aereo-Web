@@ -5,10 +5,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.boot.model.Passagem;
 import com.boot.service.PassagemService;
@@ -19,6 +22,19 @@ public class PassagemController {
 
 	@Autowired
 	private PassagemService service;
+	
+	@GetMapping("/minhasreservas")
+	public ModelAndView minhasReservas(HttpSession session) {
+
+		Passagem[] passagens = service.passagemUser((String) session.getAttribute("userlogado"));
+		ModelAndView mv;
+
+		if (passagens.length != 0)
+			mv = new ModelAndView("reservas").addObject("passagens", passagens);
+		else
+			mv = new ModelAndView("home").addObject("alert", "Você não tem reservas");
+		return mv;
+	}
 
 	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
 	public ModelAndView reservar(@RequestParam("assentoIda") Long assentoI, @RequestParam("assentoVolta") Long assentoV, @RequestParam("usuario") String usuario, HttpSession session) {
@@ -30,7 +46,20 @@ public class PassagemController {
 		}
 		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
 		return mv;
+	}
+	
+	@GetMapping("/pagar/{idpas}")
+	public RedirectView pagar(@PathVariable("idpas") Long idPas, HttpSession session) {
 
+		String id = String.valueOf(session.getAttribute("iduser"));
+		Long idUser = Long.parseLong(id);
+		String token = (String) session.getAttribute("token");
+		
+		String link = service.passagemPaga(idUser, idPas, token);
+
+		RedirectView redirectView = new RedirectView();
+		redirectView.setUrl(link);
+		return redirectView;
 	}
 
 }

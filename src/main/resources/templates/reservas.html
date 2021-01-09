@@ -28,7 +28,7 @@
 								<th><p>Assento</p></th>
 								<th><p>Preço</p></th>
 								<th><p>Status do Pagamento</p></th>
-								<!-- <th><p>Ação</p></th> -->
+								<th><p>Ação</p></th>
 
 							</tr>
 							<tr th:each="p : ${passagens}">
@@ -85,12 +85,11 @@
 								<td>
 									<p th:text="${p.pagamento.status}">Em andamento</p>
 								</td>
-								<!-- <td><a class="btn btn-danger btn-sm" href="#" role="button">
-										<span class="oi oi-circle-x" title="Cancelar"
-										aria-hidden="true"></span>
-								</a> <a class="btn btn-success btn-sm" href="#" role="button"> <span
-										class="oi oi-check" title="Pagar" aria-hidden="true"></span>
-								</a></td> -->
+								<td>
+									<a class="btn btn-success btn-sm" th:href="@{/passagem/pagar/{idpas}(idpas = ${p.id}) }" role="button"> <span
+										class="oi oi-check" title="Pagar" aria-hidden="true">Pagar</span>
+									</a>
+								</td>
 							</tr>
 						</tbody>
 					</table>

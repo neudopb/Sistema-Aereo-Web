@@ -7,20 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.boot.model.Passagem;
 import com.boot.model.Usuario;
 import com.boot.service.IndexService;
-import com.boot.service.PassagemService;
 
 @Controller
 public class IndexController {
 
 	@Autowired
 	private IndexService service;
-
-	@Autowired
-	private PassagemService servicePassagem;
 
 	@GetMapping("/")
 	public String login(Usuario usuario) {
@@ -41,6 +35,8 @@ public class IndexController {
 	@GetMapping("/logout")
 	public String Logout(Usuario usuario, HttpSession session) {
 		session.removeAttribute("userlogado");
+		session.removeAttribute("token");
+		session.removeAttribute("iduser");
 		return "login";
 	}
 
@@ -52,7 +48,8 @@ public class IndexController {
 			return new ModelAndView("login").addObject("fail", "E-mail e/ou senha incorreto");
 		}
 
-		session.setAttribute("userlogado", usuario.getEmail());
+		session.setAttribute("iduser", user.getId());
+		session.setAttribute("userlogado", user.getEmail());
 		session.setAttribute("token", user.getToken());
 		ModelAndView mv = new ModelAndView("home").addObject("logado", session.getAttribute("userlogado"));
 
@@ -75,17 +72,5 @@ public class IndexController {
 		return mv;
 	}
 
-	@GetMapping("/minhasreservas")
-	public ModelAndView minhasReservas(HttpSession session) {
-
-		Passagem[] passagens = servicePassagem.passagemUser((String) session.getAttribute("userlogado"));
-		ModelAndView mv;
-
-		if (passagens.length != 0)
-			mv = new ModelAndView("reservas").addObject("passagens", passagens);
-		else
-			mv = new ModelAndView("home").addObject("alert", "Você não tem reservas");
-		return mv;
-	}
-
+	
 }

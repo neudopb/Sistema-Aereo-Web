@@ -23,19 +23,6 @@ public class PassagemController {
 	@Autowired
 	private PassagemService service;
 	
-	@GetMapping("/minhasreservas")
-	public ModelAndView minhasReservas(HttpSession session) {
-
-		Passagem[] passagens = service.passagemUser((String) session.getAttribute("userlogado"));
-		ModelAndView mv;
-
-		if (passagens.length != 0)
-			mv = new ModelAndView("reservas").addObject("passagens", passagens);
-		else
-			mv = new ModelAndView("home").addObject("alert", "Você não tem reservas");
-		return mv;
-	}
-
 	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
 	public ModelAndView reservar(@RequestParam("assentoIda") Long assentoI, @RequestParam("assentoVolta") Long assentoV, @RequestParam("usuario") String usuario, HttpSession session) {
 

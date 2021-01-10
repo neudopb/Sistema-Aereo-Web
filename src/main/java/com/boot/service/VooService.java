@@ -33,26 +33,24 @@ public class VooService {
 	public Voo[] findVoo(String origem, String destino, LocalDate data, String classe) {
 
 		try {
-			
-		
-		Mono<Voo[]> monoV = this.webClient.get()
-				.uri("/api/voo/findvoo/{origem}/{destino}/{data}",
-						origem, destino, data)
-				.retrieve()
-				.bodyToMono(Voo[].class);
-		
-		Voo[] voo = monoV.block();
-		
-		for (Voo v : voo) {
-			Mono<Assento[]> monoA = this.webClient.get()
-					.uri("/api/assento/findassentodispclasse/{id}/{classe}", v.getId(), classe)
+			Mono<Voo[]> monoV = this.webClient.get()
+					.uri("/api/voo/findvoo/{origem}/{destino}/{data}",
+							origem, destino, data)
 					.retrieve()
-					.bodyToMono(Assento[].class);
+					.bodyToMono(Voo[].class);
 			
-			Assento[] assentos = monoA.block();
-			v.setAssentos(Arrays.asList(assentos));
-		}
-		return voo;
+			Voo[] voo = monoV.block();
+			
+			for (Voo v : voo) {
+				Mono<Assento[]> monoA = this.webClient.get()
+						.uri("/api/assento/findassentodispclasse/{id}/{classe}", v.getId(), classe)
+						.retrieve()
+						.bodyToMono(Assento[].class);
+				
+				Assento[] assentos = monoA.block();
+				v.setAssentos(Arrays.asList(assentos));
+			}
+			return voo;
 		
 		} catch (Exception e) {
 			return null;

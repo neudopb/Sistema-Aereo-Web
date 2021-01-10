@@ -51,7 +51,7 @@ public class VooController {
 		Voo[] voosI = service.findVoo(origem, destino, dataI, classe);
 		
 		if(voosI.length  ==  0) {
-			return new ModelAndView("home").addObject("alert", "Busca sem resultados");
+			return new ModelAndView("home").addObject("alert", "Não há voos para essa data!");
 		}
 
 		ModelAndView mv = new ModelAndView("passagens");
@@ -60,6 +60,11 @@ public class VooController {
 		if (!dataVolta.isEmpty()) {
 			LocalDate dataV = LocalDate.parse(dataVolta, formatter);
 			Voo[] voosV = service.findVoo(destino, origem, dataV, classe);
+			
+			if(voosV.length  ==  0) {
+				return new ModelAndView("home").addObject("alert", "Não há voos de volta para essa data!");
+			}
+			
 			mv.addObject("voosVolta", voosV);
 		}
 

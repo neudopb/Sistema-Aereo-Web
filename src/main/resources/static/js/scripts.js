@@ -78,6 +78,14 @@
  	   });
  	});
     
+    $('.disabilitarI').change(function (){
+    	$('#hiddenI').val($(this).val());
+    });
+    
+    $('.disabilitarV').change(function (){
+    	$('#hiddenV').val($(this).val());
+    });
+    
     $('#dataIda').ready(function (){
     	var today = new Date().toISOString().split('T')[0];
     	document.querySelector('#dataIda').setAttribute('min',today);

@@ -142,13 +142,15 @@
 									<td><label><b>Assento</b></label><br> <select
 										th:id="${'selectV' + v.id}" class="disabilitarV"
 										name="assentoVolta" disabled>
-											<option value="" disabled selected>Selecione</option>
+											<option value="0" disabled selected>Selecione</option>
 											<option th:each=" a : ${v.assentos}" th:value="${a.id}"
 												th:text="${a.nome}"></option>
 	
 									</select></td>
 								</tr>
 								<input type="hidden" name="usuario" th:value="${user}">
+								<input type="hidden" id="hiddenI" name="hiddenI" value="">
+								<input type="hidden" id="hiddenV" name="hiddenV" value="">
 								<tr>
 								<td align="center" colspan="7">
 									<button type="submit"

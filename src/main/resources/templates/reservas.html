@@ -86,7 +86,8 @@
 									<p th:text="${p.pagamento.status}">Em andamento</p>
 								</td>
 								<td>
-									<a class="btn btn-success btn-sm" th:href="@{/passagem/pagar/{idpas}(idpas = ${p.id}) }" role="button"> <span
+									<a th:if="${p.pagamento.status != 'CONCLUIDA'}"
+										class="btn btn-success btn-sm" th:href="@{/passagem/pagar/{idpas}(idpas = ${p.id}) }" role="button"> <span
 										class="oi oi-check" title="Pagar" aria-hidden="true">Pagar</span>
 									</a>
 								</td>

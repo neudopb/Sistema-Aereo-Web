@@ -24,12 +24,12 @@ public class PassagemController {
 	private PassagemService service;
 	
 	@RequestMapping(value = "/reserva", method = RequestMethod.GET)
-	public ModelAndView reservar(@RequestParam("assentoIda") Long assentoI, @RequestParam("assentoVolta") Long assentoV, @RequestParam("usuario") String usuario, HttpSession session) {
-
-		Passagem[] passagens = service.passagemSave(usuario, assentoI);
+	public ModelAndView reservar(@RequestParam("hiddenI") String assentoI, @RequestParam("hiddenV") String assentoV, @RequestParam("usuario") String usuario, HttpSession session) {
+		
+		Passagem[] passagens = service.passagemSave(usuario, Long.parseLong(String.valueOf(assentoI)));
 		
 		if(assentoV != null) {
-			passagens = service.passagemSave(usuario, assentoV);
+			passagens = service.passagemSave(usuario, Long.parseLong(String.valueOf(assentoV)));
 		}
 		ModelAndView mv = new ModelAndView("reservas").addObject("passagens", passagens);
 		return mv;

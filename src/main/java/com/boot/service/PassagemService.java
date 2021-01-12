@@ -86,7 +86,7 @@ public class PassagemService {
 						.queryParam("valor", passagem.getAssento().getPreco())
 						.queryParam("data", data)
 						.build())
-					.header("Origem", "http://localhost:8080/passagem/minhasreservas")
+					.header("Origem", "http://localhost:8080/minhasreservas")
 					.header("Authorization", "Bearer " + token)
 					.retrieve()
 					.bodyToMono(Usuario.class);
